@@ -30,19 +30,17 @@ IF %ERRORLEVEL% NEQ 0 GOTO ERROR_HANDLER
 
 :ANSIBLESETUP
 echo Enabling PowerShell Remoting for Ansible...
-REM @powershell -NoProfile -ExecutionPolicy bypass -command "Invoke-Expression ((New-Object System.Net.Webclient).DownloadString('https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1'))"
-@powershell -NoProfile -ExecutionPolicy bypass -command "$script=((New-Object System.Net.Webclient).DownloadString('https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1')); Invoke-Command -ScriptBlock ([scriptblock]::Create($script)) -ArgumentList -EnableCredSSP"
+@powershell -NoProfile -ExecutionPolicy bypass -command "Invoke-Expression ((New-Object System.Net.Webclient).DownloadString('https://raw.githubusercontent.com/jjtsai12/biovia/master/ansible/ConfigureRemotingForAnsible.ps1'))"
 ECHO DEBUG: %~n0: expecting errorlevel 0, got error level: %ERRORLEVEL%
 
 :END
 echo.
 echo Successfully ran %~n0 !!!
-GOTO QUIT
+exit /b 0
 
 :ERROR_HANDLER
 echo.
 echo Error occurred!!!
 exit /b 1
 
-:QUIT
-echo.
+
