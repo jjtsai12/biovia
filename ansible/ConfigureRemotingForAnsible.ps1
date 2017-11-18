@@ -187,16 +187,16 @@ ElseIf ((Get-Service "WinRM").Status -ne "Running")
 # WinRM should be running; check that we have a PS session config.
 If (!(Get-PSSessionConfiguration -Verbose:$false) -or (!(Get-ChildItem WSMan:\localhost\Listener)))
 {
-  If ($SkipNetworkProfileCheck) {
+  # If ($SkipNetworkProfileCheck) {
     Write-Verbose "Enabling PS Remoting without checking Network profile."
     Enable-PSRemoting -SkipNetworkProfileCheck -Force -ErrorAction Stop
     Write-Log "Enabled PS Remoting without checking Network profile."
-  }
-  Else {
-    Write-Verbose "Enabling PS Remoting."
-    Enable-PSRemoting -Force -ErrorAction Stop
-    Write-Log "Enabled PS Remoting."
-  }
+  # }
+  # Else {
+    # Write-Verbose "Enabling PS Remoting."
+    # Enable-PSRemoting -Force -ErrorAction Stop
+    # Write-Log "Enabled PS Remoting."
+  # }
 }
 Else
 {
@@ -231,8 +231,8 @@ Else
     Write-Verbose "SSL listener is already active."
 
     # Force a new SSL cert on Listener if the $ForceNewSSLCert
-    If ($ForceNewSSLCert)
-    {
+    # If ($ForceNewSSLCert)
+    # {
 
         # We cannot use New-SelfSignedCertificate on 2012R2 and earlier
         $thumbprint = New-LegacySelfSignedCert -SubjectName $SubjectName -ValidDays $CertValidityDays
@@ -252,7 +252,7 @@ Else
 
         # Add new Listener with new SSL cert
         New-WSManInstance -ResourceURI 'winrm/config/Listener' -SelectorSet $selectorset -ValueSet $valueset
-    }
+    # }
 }
 
 # Check for basic authentication.
