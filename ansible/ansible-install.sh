@@ -60,6 +60,11 @@ if [ ! "$(which ansible-playbook)" ]; then
     rm -rf /var/cache/yum
     yum_makecache_retry
     yum -y install epel-release
+	
+	# Some machines can't seem to yum install epel-release so just download the RPM
+	wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+	rpm -ihv epel-release-latest-7.noarch.rpm
+
     # One more time with EPEL to avoid failures
     yum_makecache_retry
 
