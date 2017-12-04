@@ -62,14 +62,13 @@ if [ ! "$(which ansible-playbook)" ]; then
     yum -y install epel-release
 	
 	# Some machines can't seem to yum install epel-release so just download the RPM
-	yum -y install wget
 	wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 	rpm -ihv epel-release-latest-7.noarch.rpm
 
     # One more time with EPEL to avoid failures
     yum_makecache_retry
 
-    yum -y install python-pip PyYAML python-jinja2 python-httplib2 python-keyczar python-paramiko git
+    yum -y install python-pip PyYAML python-jinja2 python-httplib2 python-keyczar python-paramiko
     # If python-pip install failed and setuptools exists, try that
     if [ -z "$(which pip)" ] && [ -z "$(which easy_install)" ]; then
       yum -y install python-setuptools
@@ -83,7 +82,7 @@ if [ ! "$(which ansible-playbook)" ]; then
     yum -y install python-devel MySQL-python sshpass libffi-devel openssl-devel && pip install pyrax pysphere boto passlib dnspython
 
     # Install Ansible module dependencies
-    yum -y install bzip2 file findutils git gzip hg svn sudo tar which unzip xz zip libselinux-python
+    yum -y install bzip2 file findutils gzip hg svn sudo tar which unzip xz zip libselinux-python
     [ -n "$(yum search procps-ng)" ] && yum -y install procps-ng || yum -y install procps
 
   elif [ -f /etc/debian_version ] || grep -qi ubuntu /etc/lsb-release || grep -qi ubuntu /etc/os-release; then
@@ -172,20 +171,5 @@ if [ ! "$(which ansible-playbook)" ]; then
   fi
 
 fi
-
-# Install from source
-
-# Install Git
-#curl -s https://setup.ius.io/ | sudo bash -
-#yum -y install git2u
-
-# Install Ansible from source
-#cd ~
-#git clone git://github.com/ansible/ansible.git --recursive
-#cd ~/ansible
-#pip install -r ./requirements.txt
-
-# Source ansible environment
-#source ~/ansible/hacking/env-setup -q
 
 ansible --version
