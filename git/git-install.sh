@@ -12,3 +12,4 @@ yum -y erase git
 # Install a newer version of Git from ius
 curl -s https://raw.githubusercontent.com/iuscommunity/automation-examples/bash/enable-ius.sh | bash -
 yum -y install git2u
+git --version
