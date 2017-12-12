@@ -81,6 +81,9 @@ if [ ! "$(which ansible-playbook)" ]; then
     yum -y groupinstall "Development tools"
     yum -y install python-devel MySQL-python sshpass libffi-devel openssl-devel && pip install pyrax pysphere boto passlib dnspython
 
+	# Install gcc for some kerberos setup.py
+	yum -y install gcc
+	
     # Install Ansible module dependencies
     yum -y install bzip2 file findutils gzip hg svn sudo tar which unzip xz zip libselinux-python
     [ -n "$(yum search procps-ng)" ] && yum -y install procps-ng || yum -y install procps
