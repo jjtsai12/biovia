@@ -62,6 +62,7 @@ if [ ! "$(which ansible-playbook)" ]; then
     yum -y install epel-release
 	
 	# Some machines can't seem to yum install epel-release so just download the RPM
+	yum -y install wget
 	wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 	rpm -ihv epel-release-latest-7.noarch.rpm
 
@@ -77,13 +78,13 @@ if [ ! "$(which ansible-playbook)" ]; then
       easy_install pip
     fi
 
+	# Install gcc for some kerberos setup.py
+	yum -y install gcc
+
     # Install passlib for encrypt
     yum -y groupinstall "Development tools"
     yum -y install python-devel MySQL-python sshpass libffi-devel openssl-devel && pip install pyrax pysphere boto passlib dnspython
 
-	# Install gcc for some kerberos setup.py
-	yum -y install gcc
-	
     # Install Ansible module dependencies
     yum -y install bzip2 file findutils gzip hg svn sudo tar which unzip xz zip libselinux-python
     [ -n "$(yum search procps-ng)" ] && yum -y install procps-ng || yum -y install procps
