@@ -45,7 +45,7 @@ if [ "x$KITCHEN_LOG" = "xDEBUG" ] || [ "x$OMNIBUS_ANSIBLE_LOG" = "xDEBUG" ]; the
   set -x
 fi
 
-if [ ! "$(which ansible-playbook)" ]; then
+# if [ ! "$(which ansible-playbook)" ]; then
   if [ -f /etc/centos-release ] || [ -f /etc/redhat-release ] || [ -f /etc/oracle-release ] || [ -f /etc/system-release ]; then
 
     # Install required Python libs and pip
@@ -174,6 +174,6 @@ if [ ! "$(which ansible-playbook)" ]; then
 	pip install pywinrm[kerberos]
   fi
 
-fi
+# fi
 
 ansible --version
